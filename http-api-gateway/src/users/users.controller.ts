@@ -6,26 +6,26 @@ import {
   Inject,
   Param,
   Post,
-} from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
-import { CreateUserDto } from './dtos/CreateUser.dto';
-import { lastValueFrom } from 'rxjs';
+} from "@nestjs/common";
+import { ClientProxy } from "@nestjs/microservices";
+import { CreateUserDto } from "./dtos/CreateUser.dto";
+import { lastValueFrom } from "rxjs";
 
-@Controller('users')
+@Controller("users")
 export class UsersController {
-  constructor(@Inject('NATS_SERVICE') private natsClient: ClientProxy) {}
+  constructor(@Inject("NATS_SERVICE") private natsClient: ClientProxy) {}
 
   @Post()
   createUser(@Body() createUserDto: CreateUserDto) {
-    return this.natsClient.send({ cmd: 'createUser' }, createUserDto);
+    return this.natsClient.send({ cmd: "createUser" }, createUserDto);
   }
 
-  @Get(':id')
-  async getUserById(@Param('id') id: string) {
+  @Get(":id")
+  async getUserById(@Param("id") id: string) {
     const user = await lastValueFrom(
-      this.natsClient.send({ cmd: 'getUserById' }, { userId: id }),
+      this.natsClient.send({ cmd: "getUserById" }, { userId: id }),
     );
     if (user) return user;
-    else throw new HttpException('User not found', 404);
+    else throw new HttpException("User not found", 404);
   }
 }

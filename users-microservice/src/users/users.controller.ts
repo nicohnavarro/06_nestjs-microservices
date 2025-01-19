@@ -23,6 +23,6 @@ export class UsersMicroserviceController {
 
   @EventPattern('paymentCreated')
   paymentCreated(@Payload() data) {
-    console.log('EventPattern', data);
+    console.dir(data, { depth: Infinity });
   }
 }

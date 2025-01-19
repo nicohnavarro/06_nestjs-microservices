@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { Module } from "@nestjs/common";
+import { ClientsModule, Transport } from "@nestjs/microservices";
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'NATS_SERVICE',
+        name: "NATS_SERVICE",
         transport: Transport.NATS,
         options: {
-          servers: ['nats://nats'],
+          servers: ["nats://nats"],
         },
       },
     ]),
@@ -16,10 +16,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   exports: [
     ClientsModule.register([
       {
-        name: 'NATS_SERVICE',
+        name: "NATS_SERVICE",
         transport: Transport.NATS,
         options: {
-          servers: ['nats://nats'],
+          servers: ["nats://nats"],
         },
       },
     ]),
